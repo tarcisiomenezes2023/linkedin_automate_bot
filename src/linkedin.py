@@ -29,7 +29,7 @@ class LinkedIn:
         self.humanizer.human_type(password, os.getenv('LINKEDIN_PASSWORD'))
         
         # Click login with human-like delay
-        self.humanizer.random_delay(1, 2)
+        self.humanizer.random_delay(1, 4)
         login_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit']")))
         self.humanizer.human_click(login_button)
         

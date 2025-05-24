@@ -10,13 +10,13 @@ class Humanizer:
         self.driver = driver
         self.actions = ActionChains(driver)
         
-    def random_delay(self, min_sec=1, max_sec=3):
+    def random_delay(self, min_sec=1, max_sec=5):
         time.sleep(random.uniform(min_sec, max_sec))
         
     def human_type(self, element, text):
-        self.random_delay(0.5, 1.5)
+        self.random_delay(0.5, 3)
         element.click()
-        self.random_delay(0.2, 0.5)
+        self.random_delay(0.2, 1.5)
         
         for char in text:
             element.send_keys(char)
@@ -25,7 +25,7 @@ class Humanizer:
     def human_click(self, element):
         # Move mouse human-like
         self.move_mouse_to_element(element)
-        self.random_delay(0.3, 0.8)
+        self.random_delay(0.3, 3.5)
         element.click()
         
     def move_mouse_to_element(self, element):
