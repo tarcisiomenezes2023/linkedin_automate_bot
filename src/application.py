@@ -3,6 +3,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from humanizer import Humanizer
+from selenium.common.exceptions import (NoSuchElementException, 
+                                      TimeoutException,
+                                      ElementClickInterceptedException,
+                                      StaleElementReferenceException)
+import logging
 import time
 import random
 import pandas as pd

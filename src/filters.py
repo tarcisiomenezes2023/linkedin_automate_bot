@@ -95,5 +95,3 @@ class JobFilters:
                 continue
                 
         return jobs
-            
-            
