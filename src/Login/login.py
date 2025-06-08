@@ -17,8 +17,8 @@ options.add_experimental_option("prefs", {
 })
 
 # Load credentials
-username = "tarcisiomenezes2019@hotmail.com"
-password = "Virus1703?"
+username = "EMAIL"
+password = "PASSWORD"
 
 # Initialize web browser with persistent profile
 driver = webdriver.Chrome(options=options)  # ✅ aqui passa as opções
