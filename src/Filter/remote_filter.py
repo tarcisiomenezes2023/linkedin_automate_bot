@@ -1,5 +1,6 @@
 import time
 import random
+import traceback
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -47,7 +48,7 @@ def Remote_filter_jobs(driver):
     except Exception as e:
         print(f"⚠️ Could not apply 'All filters' filter: {e}")
         
-    # === Filterings for Most recent, Past 24 hours, Internship and Entry level, and Remote.
+    # === Filterings for Most recent, Past 24 hours, Internship, Easy Apply, Entry level, and Remote.
     # === Date posted: Past 24 hours ===
     try:
         date_posted_option = wait.until(EC.element_to_be_clickable((
@@ -88,6 +89,36 @@ def Remote_filter_jobs(driver):
 
     except Exception as e:
         print(f"⚠️ Could not select 'Remote': {e}")
+    
+    # === Easy Apply toggle ===
+    try:
+        # 1. Localiza o input real do toggle
+        easy_apply_input = WebDriverWait(driver, 15).until(
+            EC.presence_of_element_located((
+                By.XPATH,
+                "//input[@role='switch' and @type='checkbox' and "
+                "@data-artdeco-toggle-button='true' and contains(@class,'artdeco-toggle__button')]"
+            ))
+        )
+
+        # 2. Se ainda está desligado, clica via JavaScript no próprio input
+        if easy_apply_input.get_attribute("aria-checked") == "false":
+            driver.execute_script("arguments[0].scrollIntoView({block:'center'});", easy_apply_input)
+            time.sleep(random.uniform(0.3, 0.7))
+
+            driver.execute_script("arguments[0].click();", easy_apply_input)
+
+            # 3. Aguarda confirmação de que mudou para 'true'
+            WebDriverWait(driver, 5).until(
+                lambda d: easy_apply_input.get_attribute("aria-checked") == "true"
+            )
+            print("✅ Easy Apply realmente ativado!")
+
+        else:
+            print("ℹ️ Easy Apply já estava ativado.")
+
+    except Exception as e:
+        print(f"⚠️ Ainda não foi possível ativar Easy Apply: {e}")
 
     # Apply filters:
     try:

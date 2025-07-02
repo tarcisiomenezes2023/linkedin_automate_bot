@@ -13,11 +13,6 @@ def apply_jobs(driver):
         time.sleep(random.uniform(2.0, 5.0))
         job_card.click()
 
-        # human behevior
-        time.sleep(random.uniform(5.0, 10.0))
-        driver.execute_script("window.scrollTo(0, 500);")
-        time.sleep(random.uniform(1.5, 3.0))
-
         # Find "Easy Apply" to click
         easy_apply_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'jobs-apply-button')]")))
         easy_apply_btn.click()
