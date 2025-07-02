@@ -8,15 +8,19 @@ def apply_jobs(driver):
     try:
         wait = WebDriverWait(driver, 10)
 
-        # Wait and click the next card job
-        job_card = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "job-card-list__title")))
-        time.sleep(random.uniform(2.0, 5.0))
-        job_card.click()
+        # 1️⃣  Espera o botão ficar clicável
+        apply_button = wait.until(EC.element_to_be_clickable((
+            By.XPATH,
+            "//button[@id='jobs-apply-button-id' and contains(., 'Easy Apply')]"
+        )))
 
-        # Find "Easy Apply" to click
-        easy_apply_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'jobs-apply-button')]")))
-        easy_apply_btn.click()
-        print("✅ Easy Apply button clicked!")
+        # 2️⃣  Garante que está no viewport
+        driver.execute_script("arguments[0].scrollIntoView({block:'center'});", apply_button)
+        time.sleep(random.uniform(0.3, 1.0))
+
+        # 3️⃣  Clica via JavaScript
+        driver.execute_script("arguments[0].click();", apply_button)
+        print("✅ Botão 'Easy Apply' clicado com sucesso!")
 
     except Exception as e:
-        print(f"⚠️ Erro ao aplicar: {str(e)}")
+        print(f"⚠️ ERRO: não foi possível clicar no botão 'Easy Apply': {e}")
